@@ -1,0 +1,39 @@
+{
+  "source": "technodom",
+  "categoryAliases": {
+    "смартфон": "smartphones",
+    "смартфонов": "smartphones",
+    "для смартфонов": "smartphones",
+    "телефон": "smartphones",
+    "iphone": "smartphones",
+    "ноутбук": "laptops",
+    "macbook": "laptops",
+    "наушники": "headphones",
+    "гарнитура": "headphones",
+    "планшет": "tablets",
+    "часы": "smartwatch",
+    "камера": "cameras",
+    "фотоаппарат": "cameras",
+    "беззеркальный": "cameras",
+    "зеркальный": "cameras",
+    "instax": "cameras",
+    "fujifilm": "cameras",
+    "canon": "cameras",
+    "пленка": "cameras",
+    "фотобумага": "cameras",
+    "принтер моментальной печати": "cameras",
+    "принтер": "cameras",
+    "приставка": "gaming",
+    "playstation": "gaming"
+  },
+  "brandAliases": {
+    "apple": "Apple",
+    "sony": "Sony",
+    "samsung": "Samsung",
+    "xiaomi": "Xiaomi",
+    "canon": "Canon",
+    "fujifilm": "Fujifilm",
+    "honor": "Honor",
+    "vivo": "Vivo"
+  }
+}

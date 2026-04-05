@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#f7f7f5"/>
+  <rect x="250" y="110" width="300" height="580" rx="44" fill="#1b1f29"/>
+  <rect x="272" y="150" width="256" height="500" rx="30" fill="#e9eef8"/>
+  <circle cx="400" cy="610" r="18" fill="#d6deed"/>
+  <rect x="350" y="126" width="100" height="12" rx="6" fill="#404655"/>
+  <text x="400" y="740" text-anchor="middle" font-family="Arial, sans-serif" font-size="40" fill="#6b6b66">Smartphone</text>
+</svg>

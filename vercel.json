@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "functions": {
+    "server.js": {
+      "runtime": "nodejs20.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/api/(health|store|orders|chat)",
+      "dest": "/server.js"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}

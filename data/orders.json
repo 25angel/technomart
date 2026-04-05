@@ -1,0 +1,48 @@
+[
+  {
+    "id": "454281ce-a3f4-4afd-8f56-12138f38e126",
+    "orderNumber": "TM-2026-00001",
+    "createdAt": "2026-04-05T10:58:03.008Z",
+    "status": "new",
+    "customer": {
+      "firstName": "Arman",
+      "lastName": "Seitkali",
+      "email": "arman@example.com",
+      "phone": "+77071234567"
+    },
+    "delivery": {
+      "city": "Astana",
+      "address": "Kabanbay Batyr Ave 11",
+      "apartment": "42",
+      "postalCode": "010000"
+    },
+    "paymentMethod": "card",
+    "promoCode": "TECHNO10",
+    "items": [
+      {
+        "productId": 1,
+        "quantity": 1,
+        "unitPrice": 599990,
+        "lineTotal": 599990,
+        "name": "iPhone 16 Pro Max 256GB",
+        "brand": "Apple",
+        "sku": "APL-IP16PM-256"
+      },
+      {
+        "productId": 4,
+        "quantity": 2,
+        "unitPrice": 159990,
+        "lineTotal": 319980,
+        "name": "Sony WH-1000XM5",
+        "brand": "Sony",
+        "sku": "SNY-WH1000XM5"
+      }
+    ],
+    "totals": {
+      "subtotal": 919970,
+      "shipping": 0,
+      "discount": 91997,
+      "total": 827973
+    }
+  }
+]

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TechnoMart Entry Point</title>
+  <style>
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#f7f7f5;
+      color:#111110;
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:24px;
+    }
+    .card{
+      max-width:640px;
+      background:#fff;
+      border:1px solid #e8e8e4;
+      border-radius:16px;
+      padding:28px;
+      box-shadow:0 12px 30px rgba(0,0,0,.06);
+    }
+    h1{margin:0 0 12px;font-size:28px}
+    p{margin:0 0 14px;line-height:1.6;color:#555}
+    code{
+      display:block;
+      background:#f0f0ed;
+      border-radius:10px;
+      padding:12px 14px;
+      margin:12px 0;
+      white-space:pre-wrap;
+    }
+    a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      background:#0066ff;
+      color:#fff;
+      text-decoration:none;
+      font-weight:600;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>TechnoMart moved to a full-stack app</h1>
+    <p>Этот файл больше не является основной версией магазина. Проект теперь запускается через backend-сервер и отдает frontend из папки <code>public/</code>.</p>
+    <p>Запуск:</p>
+    <code>npm start</code>
+    <p>После этого открой:</p>
+    <code>http://localhost:3000</code>
+    <a href="http://localhost:3000">Open Local App</a>
+  </div>
+</body>
+</html>

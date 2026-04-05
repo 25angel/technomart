@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechnoMart: premium electronics store with catalog, cart, checkout and backend-powered order processing.">
+  <meta property="og:title" content="TechnoMart">
+  <meta property="og:description" content="Premium electronics store with a real backend for products and orders.">
+  <meta property="og:type" content="website">
+  <title>TechnoMart | Premium Electronics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <button class="logo clickable" id="logoBtn" aria-label="Go to homepage">
+          <span class="logo-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+          </span>
+          <span class="logo-text">Techno<span>Mart</span></span>
+        </button>
+        <div class="search-wrap">
+          <label class="sr-only" for="searchInput">Search products</label>
+          <input class="search-input" id="searchInput" type="search" placeholder="Search for phones, laptops, headphones..." autocomplete="off">
+          <button class="search-btn" id="searchBtn" aria-label="Search">
+            <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"></path></svg>
+          </button>
+        </div>
+        <div class="header-actions">
+          <button class="hbtn" id="catalogBtn">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+            <span>Catalog</span>
+          </button>
+          <button class="hbtn" id="wishlistBtn" aria-label="Wishlist">
+            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path></svg>
+            <span>Wishlist</span>
+            <span class="cart-badge" id="wishlistCount" style="display:none">0</span>
+          </button>
+          <button class="hbtn" id="cartBtn">
+            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 01-8 0"></path></svg>
+            <span>Cart</span>
+            <span class="cart-badge" id="cartCount" style="display:none">0</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="page-home" class="page active">
+      <div class="container">
+        <section class="hero">
+          <div class="hero-grid">
+            <div class="hero-banner">
+              <div class="hero-shell">
+                <div>
+                  <div class="hero-badge">Curated for a global audience</div>
+                  <h1 class="hero-title">Tech That Looks<br>As Good As It Performs</h1>
+                  <p class="hero-sub">Shop clean, modern electronics with real product data, persistent wishlist, and a checkout flow backed by a working API.</p>
+                  <div class="hero-actions">
+                    <button class="hero-cta" data-nav-page="catalog">
+                      Shop Collection
+                      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    </button>
+                    <button class="hero-ghost" data-category="smartphones">Explore Phones</button>
+                  </div>
+                </div>
+                <div class="hero-visual">
+                  <div class="hero-orb hero-orb-one"></div>
+                  <div class="hero-orb hero-orb-two"></div>
+                  <div class="hero-panel hero-panel-main" id="heroSpotlightMain"></div>
+                  <div class="hero-panel hero-panel-mini" id="heroSpotlightSide"></div>
+                </div>
+              </div>
+              <div class="hero-stats">
+                <div class="hero-stat">
+                  <strong id="heroProducts">0</strong>
+                  <span>Products</span>
+                </div>
+                <div class="hero-stat">
+                  <strong id="heroCategories">0</strong>
+                  <span>Categories</span>
+                </div>
+                <div class="hero-stat">
+                  <strong>API</strong>
+                  <span>Ready</span>
+                </div>
+                <div class="hero-stat">
+                  <strong id="heroWishlistStat">0</strong>
+                  <span>Saved</span>
+                </div>
+              </div>
+            </div>
+            <div class="hero-side">
+              <button class="side-card category-promo" data-category="smartphones">
+                <span class="side-card-icon side-card-icon-text" style="background:#ffe0cc">SP</span>
+                <span>
+                  <span class="side-card-title">Smartphones</span>
+                  <span class="side-card-sub">Flagships and camera phones</span>
+                </span>
+              </button>
+              <button class="side-card category-promo" data-category="laptops">
+                <span class="side-card-icon side-card-icon-text" style="background:#ccf0e0">LP</span>
+                <span>
+                  <span class="side-card-title">Laptops & PCs</span>
+                  <span class="side-card-sub">Portable powerhouses</span>
+                </span>
+              </button>
+              <button class="side-card category-promo" data-category="headphones">
+                <span class="side-card-icon side-card-icon-text" style="background:#fff0d9">AU</span>
+                <span>
+                  <span class="side-card-title">Audio & Headphones</span>
+                  <span class="side-card-sub">Wireless, focused, immersive</span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section-tight">
+          <div class="home-strip" id="homeStrip"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">Shop by Category</h2>
+            <button class="see-all" data-nav-page="catalog">View all →</button>
+          </div>
+          <div class="cats-grid" id="categoriesGrid"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">Featured Products</h2>
+            <button class="see-all" data-nav-page="catalog">View all →</button>
+          </div>
+          <div class="prod-grid" id="featuredGrid"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2 class="section-title">Saved for Later</h2>
+            <button class="see-all" id="wishlistSeeAllBtn">Open wishlist →</button>
+          </div>
+          <div class="prod-grid" id="wishlistPreviewGrid"></div>
+        </section>
+
+        <section class="banner-row">
+          <button class="promo-banner promo-banner-dark" data-category="laptops">
+            <span class="promo-kicker">Creator Edit</span>
+            <span class="promo-title">Portable Power<br>For Deep Work</span>
+            <span class="promo-sub">From lightweight notebooks to high-performance daily drivers</span>
+            <span class="promo-link">Explore →</span>
+          </button>
+          <button class="promo-banner promo-banner-green" data-category="headphones">
+            <span class="promo-kicker">Audio Special</span>
+            <span class="promo-title">Find Your Daily<br>Listening Pair</span>
+            <span class="promo-sub">Comfortable wireless audio for calls, travel and focus sessions</span>
+            <span class="promo-link">Shop Audio →</span>
+          </button>
+        </section>
+      </div>
+    </div>
+
+    <div id="page-catalog" class="page">
+      <nav id="mainNav" aria-label="Product categories">
+        <div class="container">
+          <div class="nav-inner" id="navInner"></div>
+        </div>
+      </nav>
+      <div class="container">
+        <div class="catalog-head">
+          <h2 class="section-title" id="catalogTitle">All Products</h2>
+          <p class="catalog-subtitle" id="catalogSubtitle">Discover our curated selection of premium electronics</p>
+        </div>
+        <div class="products-layout">
+          <aside class="filters-sidebar">
+            <div class="filter-panel">
+              <div class="filter-title">
+                <span>Filters</span>
+                <button class="filter-reset" id="resetFiltersBtn">Reset all</button>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Price Range</div>
+                <div class="price-range">
+                  <input class="price-input" id="priceMin" type="number" placeholder="Min">
+                  <span>—</span>
+                  <input class="price-input" id="priceMax" type="number" placeholder="Max">
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Brand</div>
+                <div id="brandFilters"></div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Rating</div>
+                <div class="stars-filter">
+                  <label class="star-row"><input type="radio" name="rating" value="4"><span class="stars-display">★★★★☆</span><span class="star-cnt">4+ stars</span></label>
+                  <label class="star-row"><input type="radio" name="rating" value="3"><span class="stars-display">★★★☆☆</span><span class="star-cnt">3+ stars</span></label>
+                  <label class="star-row"><input type="radio" name="rating" value="0"><span class="stars-display">★☆☆☆☆</span><span class="star-cnt">All ratings</span></label>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-label">Availability</div>
+                <label class="filter-option">
+                  <input type="checkbox" id="inStockOnly">
+                  <span>In stock only</span>
+                </label>
+              </div>
+            </div>
+          </aside>
+          <section class="products-main">
+            <div class="toolbar">
+              <div class="results-count" id="resultsCount"><strong>0</strong> products found</div>
+              <select class="sort-select" id="sortSelect" aria-label="Sort products">
+                <option value="featured">Featured</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="rating">Top Rated</option>
+                <option value="newest">Newest</option>
+              </select>
+            </div>
+            <div class="prod-grid" id="catalogGrid"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-product" class="page">
+      <div class="container" id="productPageContent"></div>
+    </div>
+
+    <div id="page-cart" class="page">
+      <div class="container">
+        <div class="page-head">
+          <h2 class="section-title">Shopping Cart</h2>
+          <p class="catalog-subtitle">Saved locally and ready for checkout.</p>
+        </div>
+        <div class="cart-layout">
+          <div>
+            <div class="cart-items" id="cartItemsContainer"></div>
+          </div>
+          <aside class="order-summary">
+            <div class="summary-title">Order Summary</div>
+            <div class="summary-row"><span class="summary-label">Subtotal</span><span class="summary-val" id="summarySubtotal">$0.00</span></div>
+            <div class="summary-row"><span class="summary-label">Shipping</span><span class="summary-val" id="summaryShipping">$0.00</span></div>
+            <div class="summary-row"><span class="summary-label">Discount</span><span class="summary-val summary-discount" id="summaryDiscount">-$0.00</span></div>
+            <div class="summary-row total"><span class="summary-label">Total</span><span class="summary-val" id="summaryTotal">$0.00</span></div>
+            <div class="promo-input-wrap">
+              <input class="promo-input" id="promoCode" type="text" placeholder="Promo code">
+              <button class="promo-btn" id="applyPromoBtn">Apply</button>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+              Proceed to Checkout
+              <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+            </button>
+            <div class="summary-note">Secure order processing on the backend with server-side totals validation.</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-checkout" class="page">
+      <div class="container">
+        <div class="checkout-top">
+          <button class="back-btn" id="backToCartBtn" aria-label="Back to cart">
+            <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"></path></svg>
+          </button>
+          <div>
+            <h2 class="section-title">Checkout</h2>
+            <p class="catalog-subtitle">Order details will be saved on the backend.</p>
+          </div>
+        </div>
+        <div class="checkout-grid">
+          <div>
+            <form id="checkoutForm" novalidate>
+              <div class="checkout-card">
+                <div class="checkout-step-title"><span class="step-num">1</span>Contact Information</div>
+                <div class="form-row">
+                  <div class="form-group"><label class="form-label" for="firstName">First Name</label><input class="form-input" id="firstName" name="firstName" type="text" required></div>
+                  <div class="form-group"><label class="form-label" for="lastName">Last Name</label><input class="form-input" id="lastName" name="lastName" type="text" required></div>
+                </div>
+                <div class="form-row full">
+                  <div class="form-group"><label class="form-label" for="phone">Phone Number</label><input class="form-input" id="phone" name="phone" type="tel" placeholder="+7 707 123 45 67" required></div>
+                </div>
+                <div class="form-row full">
+                  <div class="form-group"><label class="form-label" for="email">Email Address</label><input class="form-input" id="email" name="email" type="email" placeholder="arman@example.com" required></div>
+                </div>
+              </div>
+
+              <div class="checkout-card">
+                <div class="checkout-step-title"><span class="step-num">2</span>Delivery Address</div>
+                <div class="form-row full">
+                  <div class="form-group"><label class="form-label" for="city">City</label>
+                    <select class="form-input checkout-city-select" id="city" name="city" required>
+                      <option value="">Select city</option>
+                      <option>New York</option>
+                      <option>Los Angeles</option>
+                      <option>London</option>
+                      <option>Berlin</option>
+                      <option>Dubai</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row full">
+                  <div class="form-group"><label class="form-label" for="address">Street Address</label><input class="form-input" id="address" name="address" type="text" placeholder="115 Market Street" required></div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group"><label class="form-label" for="apartment">Apartment</label><input class="form-input" id="apartment" name="apartment" type="text" placeholder="Apt 42"></div>
+                  <div class="form-group"><label class="form-label" for="postalCode">Postal Code</label><input class="form-input" id="postalCode" name="postalCode" type="text" placeholder="10001" required></div>
+                </div>
+              </div>
+
+              <div class="checkout-card">
+                <div class="checkout-step-title"><span class="step-num">3</span>Payment Method</div>
+                <div class="payment-opts">
+                  <label class="pay-opt selected">
+                    <input type="radio" name="payment" value="card" checked>
+                    <span class="pay-opt-label">Bank Card</span>
+                    <span class="pay-opt-meta">Visa · Mastercard</span>
+                  </label>
+                  <label class="pay-opt">
+                    <input type="radio" name="payment" value="paypal">
+                    <span class="pay-opt-label">PayPal</span>
+                    <span class="pay-opt-meta">Fast online checkout</span>
+                  </label>
+                  <label class="pay-opt">
+                    <input type="radio" name="payment" value="cash">
+                    <span class="pay-opt-label">Cash on Delivery</span>
+                    <span class="pay-opt-meta">Pay upon arrival</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="form-errors" id="checkoutErrors" hidden></div>
+              <button class="place-order-btn" id="placeOrderBtn" type="submit">
+                <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                Place Order
+              </button>
+            </form>
+          </div>
+          <aside class="order-summary sticky-summary">
+            <div class="summary-title">Your Order</div>
+            <div id="checkoutItems"></div>
+            <div class="summary-row"><span class="summary-label">Subtotal</span><span class="summary-val" id="coSubtotal">$0.00</span></div>
+            <div class="summary-row"><span class="summary-label">Shipping</span><span class="summary-val" id="coShipping">Free</span></div>
+            <div class="summary-row"><span class="summary-label">Discount</span><span class="summary-val summary-discount" id="coDiscount">-$0.00</span></div>
+            <div class="summary-row total"><span class="summary-label">Total</span><span class="summary-val" id="coTotal">$0.00</span></div>
+            <div class="summary-note">The backend recalculates stock, shipping and discount before saving the order.</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div id="page-success" class="page">
+      <div class="container">
+        <div class="success-page fade-in">
+          <div class="success-icon">✓</div>
+          <h2 class="success-title">Order Placed!</h2>
+          <p class="success-sub">Your order has been created successfully. We saved it on the backend and our manager will contact you shortly.</p>
+          <div class="success-order-num" id="orderNum">Order #TM-00000</div>
+          <button class="continue-btn" data-nav-page="home">Continue Shopping</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <div class="logo static-logo">
+              <span class="logo-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+              </span>
+              <span class="logo-text">Techno<span>Mart</span></span>
+            </div>
+            <p>A modern electronics storefront for a global audience, backed by a real API for products and orders.</p>
+          </div>
+          <div>
+            <div class="footer-col-title">Catalog</div>
+            <div class="footer-links">
+              <button data-category-link="smartphones">Smartphones</button>
+              <button data-category-link="laptops">Laptops</button>
+              <button data-category-link="headphones">Audio</button>
+              <button data-category-link="tablets">Tablets</button>
+              <button data-nav-page="catalog">All Products</button>
+            </div>
+          </div>
+          <div>
+            <div class="footer-col-title">Company</div>
+            <div class="footer-links">
+              <span>Fast delivery</span>
+              <span>Official warranty</span>
+              <span>Backend order processing</span>
+              <span>Modern storefront</span>
+            </div>
+          </div>
+          <div>
+            <div class="footer-col-title">Contact</div>
+            <div class="footer-links">
+              <span>Global online storefront</span>
+              <a id="supportEmailLink" href="mailto:hello@technomart.store">hello@technomart.store</a>
+              <span>Mon-Fri: 9:00-18:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span id="footerYear">© 2026 TechnoMart. All rights reserved.</span>
+          <span>Privacy Policy · Terms of Service</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="chat-shell" id="chatShell">
+    <button class="chat-launcher" id="chatLauncher" aria-label="Open assistant chat" title="Chat with assistant">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 01-8.5 8.5H7l-4 3v-5.5A8.5 8.5 0 1112 20"></path></svg>
+    </button>
+    <div class="chat-panel" id="chatPanel" hidden>
+      <div class="chat-header">
+        <div>
+          <div class="chat-title">TechnoMart Assistant</div>
+          <div class="chat-subtitle">Powered by Gemini</div>
+        </div>
+        <button class="chat-close" id="chatClose" aria-label="Close chat">×</button>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-message bot">
+          <div class="chat-bubble">Hi, I can help you compare products, find the right category, or answer checkout questions.</div>
+        </div>
+      </div>
+      <form class="chat-form" id="chatForm">
+        <input class="chat-input" id="chatInput" type="text" placeholder="Ask about products, delivery, or checkout..." autocomplete="off">
+        <button class="chat-send" id="chatSend" type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container">
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <span id="toastMsg"></span>
+    </div>
+  </div>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

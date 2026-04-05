@@ -1,0 +1,12 @@
+{
+  "name": "technomart-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TechnoMart full-stack demo store with a lightweight Node.js backend",
+  "scripts": {
+    "start": "node server.js",
+    "import:dummyjson": "node scripts/import-dummyjson.js",
+    "normalize:products": "node scripts/normalize-products.js",
+    "images:products": "node scripts/fetch-product-images.js"
+  }
+}
