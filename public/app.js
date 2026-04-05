@@ -663,6 +663,14 @@ function renderLoadingState() {
   if (homeStrip) homeStrip.innerHTML = '<div class="loading">Loading highlights...</div>';
 }
 
+function safeRender(label, fn) {
+  try {
+    fn();
+  } catch (error) {
+    console.error(`Render step failed: ${label}`, error);
+  }
+}
+
 function syncMeta() {
   if (!state.meta) return;
   const heroProducts = document.getElementById("heroProducts");
@@ -692,14 +700,14 @@ async function loadStore() {
   state.categories = payload.categories;
   state.products = payload.products;
   state.filteredProducts = [...payload.products];
-  renderCategories();
-  buildBrandFilters();
-  renderHomeShowcase();
-  renderFeatured();
-  renderWishlistPreview();
-  applyFilters();
-  syncMeta();
-  sanitizeStoredCart();
+  safeRender("renderCategories", renderCategories);
+  safeRender("buildBrandFilters", buildBrandFilters);
+  safeRender("renderHomeShowcase", renderHomeShowcase);
+  safeRender("renderFeatured", renderFeatured);
+  safeRender("renderWishlistPreview", renderWishlistPreview);
+  safeRender("applyFilters", applyFilters);
+  safeRender("syncMeta", syncMeta);
+  safeRender("sanitizeStoredCart", sanitizeStoredCart);
 }
 
 function sanitizeStoredCart() {
