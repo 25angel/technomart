@@ -50,7 +50,9 @@ function stars(rating) {
 
 function showToast(message) {
   const toast = document.getElementById("toast");
-  document.getElementById("toastMsg").textContent = message;
+  const toastMsg = document.getElementById("toastMsg");
+  if (!toast || !toastMsg) return;
+  toastMsg.textContent = message;
   toast.classList.add("show");
   clearTimeout(showToast.timer);
   showToast.timer = setTimeout(() => toast.classList.remove("show"), 2500);
@@ -244,30 +246,42 @@ function updateHeaderCounts() {
   const cartCount = state.cart.reduce((sum, item) => sum + item.quantity, 0);
   const cartBadge = document.getElementById("cartCount");
   const wishBadge = document.getElementById("wishlistCount");
-  cartBadge.textContent = String(cartCount);
-  cartBadge.style.display = cartCount > 0 ? "flex" : "none";
-  wishBadge.textContent = String(state.favorites.size);
-  wishBadge.style.display = state.favorites.size > 0 ? "flex" : "none";
+  if (cartBadge) {
+    cartBadge.textContent = String(cartCount);
+    cartBadge.style.display = cartCount > 0 ? "flex" : "none";
+  }
+  if (wishBadge) {
+    wishBadge.textContent = String(state.favorites.size);
+    wishBadge.style.display = state.favorites.size > 0 ? "flex" : "none";
+  }
   const heroWishlistStat = document.getElementById("heroWishlistStat");
   if (heroWishlistStat) heroWishlistStat.textContent = String(state.favorites.size);
 }
 
 function renderCategories() {
-  document.getElementById("categoriesGrid").innerHTML = state.categories
+  const categoriesGrid = document.getElementById("categoriesGrid");
+  const navInner = document.getElementById("navInner");
+  if (categoriesGrid) {
+    categoriesGrid.innerHTML = state.categories
     .map((category) => `<button class="cat-card" data-category="${category.key}"><span class="cat-icon">${category.icon}</span><span class="cat-name">${category.label}</span><span class="cat-count">${category.count} products</span></button>`)
     .join("");
+  }
 
-  document.getElementById("navInner").innerHTML = [
-    `<button type="button" class="nav-cat ${state.activeCategory === "all" ? "active" : ""}" data-category="all">All Products</button>`,
-    ...state.categories.map((category) => `<button type="button" class="nav-cat ${state.activeCategory === category.key ? "active" : ""}" data-category="${category.key}"><span class="nav-cat-icon">${category.icon}</span>${category.label}</button>`)
-  ].join("");
+  if (navInner) {
+    navInner.innerHTML = [
+      `<button type="button" class="nav-cat ${state.activeCategory === "all" ? "active" : ""}" data-category="all">All Products</button>`,
+      ...state.categories.map((category) => `<button type="button" class="nav-cat ${state.activeCategory === category.key ? "active" : ""}" data-category="${category.key}"><span class="nav-cat-icon">${category.icon}</span>${category.label}</button>`)
+    ].join("");
+  }
 }
 
 function buildBrandFilters() {
   const pool = state.activeCategory === "all" ? state.products : state.products.filter((product) => product.category === state.activeCategory);
   const brands = [...new Set(pool.map((product) => product.brand))].sort();
   const selected = new Set([...document.querySelectorAll("#brandFilters input:checked")].map((input) => input.value));
-  document.getElementById("brandFilters").innerHTML = brands
+  const brandFilters = document.getElementById("brandFilters");
+  if (!brandFilters) return;
+  brandFilters.innerHTML = brands
     .map((brand) => `<label class="filter-option"><input type="checkbox" value="${brand}" ${selected.has(brand) ? "checked" : ""}><span>${brand}</span></label>`)
     .join("");
 }
@@ -319,6 +333,7 @@ function applyFilters() {
 function renderCatalogTitle() {
   const title = document.getElementById("catalogTitle");
   const subtitle = document.getElementById("catalogSubtitle");
+  if (!title || !subtitle) return;
   if (state.catalogMode === "wishlist") {
     title.textContent = "Wishlist";
     subtitle.textContent = `${state.filteredProducts.length} saved item${state.filteredProducts.length !== 1 ? "s" : ""}`;
@@ -376,10 +391,12 @@ function renderCard(product) {
 }
 
 function renderFeatured() {
+  const featuredGrid = document.getElementById("featuredGrid");
+  if (!featuredGrid) return;
   const featured = [...state.products]
     .sort((a, b) => (b.discount || 0) - (a.discount || 0) || b.rating - a.rating || b.reviews - a.reviews)
     .slice(0, 6);
-  document.getElementById("featuredGrid").innerHTML = featured.map(renderCard).join("");
+  featuredGrid.innerHTML = featured.map(renderCard).join("");
 }
 
 function renderHomeShowcase() {
@@ -445,6 +462,7 @@ function renderWishlistPreview() {
 function renderCatalog() {
   const grid = document.getElementById("catalogGrid");
   const count = document.getElementById("resultsCount");
+  if (!grid || !count) return;
   if (!state.filteredProducts.length) {
     if (state.catalogMode === "wishlist") {
       grid.innerHTML = `<div class="wishlist-empty"><div class="wishlist-empty-title">Your wishlist is empty</div><div class="wishlist-empty-sub">Save products with the heart icon and they will show up here for quick comparison later.</div><button class="hero-cta" data-category="all" style="margin:0 auto;display:inline-flex">Browse Products</button></div>`;
@@ -573,9 +591,12 @@ function removeFromCart(productId) {
 }
 
 function renderSummary(prefix, totals) {
-  document.getElementById(`${prefix}Subtotal`).textContent = fmt(totals.subtotal);
-  document.getElementById(`${prefix}Shipping`).textContent = totals.shipping === 0 ? "Free" : fmt(totals.shipping);
-  document.getElementById(`${prefix}Total`).textContent = fmt(totals.total);
+  const subtotalNode = document.getElementById(`${prefix}Subtotal`);
+  const shippingNode = document.getElementById(`${prefix}Shipping`);
+  const totalNode = document.getElementById(`${prefix}Total`);
+  if (subtotalNode) subtotalNode.textContent = fmt(totals.subtotal);
+  if (shippingNode) shippingNode.textContent = totals.shipping === 0 ? "Free" : fmt(totals.shipping);
+  if (totalNode) totalNode.textContent = fmt(totals.total);
   const discountNode = document.getElementById(`${prefix}Discount`);
   if (discountNode) discountNode.textContent = totals.discount > 0 ? `-${fmt(totals.discount)}` : `-${fmt(0)}`;
 }
@@ -632,8 +653,10 @@ function goToCategory(category) {
 }
 
 function renderLoadingState() {
-  document.getElementById("featuredGrid").innerHTML = '<div class="loading">Loading featured products...</div>';
-  document.getElementById("catalogGrid").innerHTML = '<div class="loading">Loading catalog...</div>';
+  const featuredGrid = document.getElementById("featuredGrid");
+  const catalogGrid = document.getElementById("catalogGrid");
+  if (featuredGrid) featuredGrid.innerHTML = '<div class="loading">Loading featured products...</div>';
+  if (catalogGrid) catalogGrid.innerHTML = '<div class="loading">Loading catalog...</div>';
   const wishlistPreviewGrid = document.getElementById("wishlistPreviewGrid");
   const homeStrip = document.getElementById("homeStrip");
   if (wishlistPreviewGrid) wishlistPreviewGrid.innerHTML = '<div class="loading">Loading wishlist preview...</div>';
@@ -642,13 +665,22 @@ function renderLoadingState() {
 
 function syncMeta() {
   if (!state.meta) return;
-  document.getElementById("heroProducts").textContent = String(state.products.length);
-  document.getElementById("heroCategories").textContent = String(state.categories.length);
-  document.getElementById("supportPhoneLink").textContent = state.meta.supportPhone;
-  document.getElementById("supportPhoneLink").href = `tel:${state.meta.supportPhone.replace(/[^\d+]/g, "")}`;
-  document.getElementById("supportEmailLink").textContent = state.meta.supportEmail;
-  document.getElementById("supportEmailLink").href = `mailto:${state.meta.supportEmail}`;
-  document.getElementById("footerYear").textContent = `© ${new Date().getFullYear()} TechnoMart. All rights reserved.`;
+  const heroProducts = document.getElementById("heroProducts");
+  const heroCategories = document.getElementById("heroCategories");
+  const supportPhoneLink = document.getElementById("supportPhoneLink");
+  const supportEmailLink = document.getElementById("supportEmailLink");
+  const footerYear = document.getElementById("footerYear");
+  if (heroProducts) heroProducts.textContent = String(state.products.length);
+  if (heroCategories) heroCategories.textContent = String(state.categories.length);
+  if (supportPhoneLink) {
+    supportPhoneLink.textContent = state.meta.supportPhone;
+    supportPhoneLink.href = `tel:${state.meta.supportPhone.replace(/[^\d+]/g, "")}`;
+  }
+  if (supportEmailLink) {
+    supportEmailLink.textContent = state.meta.supportEmail;
+    supportEmailLink.href = `mailto:${state.meta.supportEmail}`;
+  }
+  if (footerYear) footerYear.textContent = `© ${new Date().getFullYear()} TechnoMart. All rights reserved.`;
 }
 
 async function loadStore() {
