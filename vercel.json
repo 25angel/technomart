@@ -1,8 +1,9 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "functions": {
     "server.js": {
-      "runtime": "nodejs20.x"
+      "includeFiles": "data/**"
     }
   },
   "routes": [
