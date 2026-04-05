@@ -2,14 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
   "functions": {
-    "server.js": {
+    "api/index.js": {
       "includeFiles": "data/**"
     }
   },
   "routes": [
     {
       "src": "/api/(health|store|orders|chat)",
-      "dest": "/server.js"
+      "dest": "/api/index.js"
     },
     {
       "handle": "filesystem"
